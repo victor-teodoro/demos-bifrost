@@ -10,8 +10,8 @@
       <div class="navbar-inner">
         <div class="navbar__left">
           <a href="/" class="navbar-brand">
-            <div class="display-table-cell">
-              Pagar.me
+            <div>
+		<img src="imagens/panvel_logo.png" alt="Panvel" height="30" width="50">
             </div>
           </a>
 
@@ -98,7 +98,7 @@
               <div id="form">
                 <p>
                   <label for="amount">Valor da transação (R$):</label>
-                  <input type="text" name="amount" id="amount" value="100"/>
+                  <input type="text" name="amount" id="amount" value="179.32"/>
                 </p>
 
                 <p>
@@ -110,7 +110,7 @@
 
 		<p>
                     <label for="installments">Número de Parcelas:</label>
-                    <select>
+                    <select id="installments">
 			<option value="1">1x</option>
 			<option value="2">2x</option>
 			<option value="3">3x</option>
@@ -124,28 +124,6 @@
 			<option value="11">11x</option>
 			<option value="12">12x</option>
 		    </select>
-                </p>
-
-                <p>
-                  <label for="context-id">ID do contexto:</label>
-                  <input type="text" name="context-id" id="context-id" value="contexto" />
-                </p>
-
-                <p>
-                  <label for="encryption-key">Encryption Key:</label>
-                  <input type="text" name="encryption-key" id="encryption-key" value="ek_test_G84bs5wa355FioxHAC00lGUe1f1p4O" />
-                </p>
-
-                <p>
-                  <label for="device-name">Dispositivo:</label>
-                  <input type="text" name="device-name" id="device-name" disabled />
-                  <br /><small><a href="config.html">configurar</a></small>
-                </p>
-
-                <p>
-                  <label for="baud-rate">Taxa de transmissão:</label>
-                  <input type="text" name="baud-rate" id="baud-rate" disabled />
-                  <br /><small><a href="config.html">configurar</a></small>
                 </p>
 
                 <p>

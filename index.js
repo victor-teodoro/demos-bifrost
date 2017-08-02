@@ -28,6 +28,8 @@ function setValues (wsWrap) {
 	getById('credit').checked ? 'Credit' :
 	getById('debit').checked ? 'Debit' :
 	null
+
+    wsWrap.installments = $('#installments').val();
 }
 
 function validate (wsWrap) {
