@@ -131,18 +131,25 @@ function sendToAcquirer(response) {
 		amount: amount,
 		installments: installments,
 		card_hash: card_hash,
+		soft_descriptor: "LojaFisica",
+		metadata: {
+		    "Filial": "Sao Paulo",
+		    "Meio de Captura": "MPOS",
+		    "Canal de Origem": "App de Autoatendimento",
+		    "Promocao de Origem": "15% OFF - Carnaval"
+		},
 		split_rules: [
 		    {
-			recipient_id: "re_cj4zwtei600hmfg6e1mh6zol1",
-			charge_processing_fee: "true",
-			liable: "true",
-			percentage: "20"
+			recipient_id: "re_cj5ec35kw04g38c6ey9zu7jr0",
+			liable: false,
+			charge_processing_fee: true,
+			percentage: "12"
 		    },
 		    {
-			recipient_id: "re_cj4zwtuwz00c7q36dz7c2rrg6",
-			charge_processing_fee: "true",
-			liable: "false",
-			percentage: "80"
+			recipient_id: "re_cj5ec4prx04gu8c6epih6pm39",
+			liable: true,
+			charge_processing_fee: false,
+			percentage: "88"
 		    }
 		]
 	    }
