@@ -22,7 +22,7 @@ function callWS () {
 }
 
 function setValues (wsWrap) {
-    wsWrap.amount = getById('amount').value
+    wsWrap.amount = getById('amount').value;
 
     wsWrap.method =
 	getById('credit').checked ? 'Credit' :
@@ -122,12 +122,14 @@ function getDevice (wsWrap, responseJson) {
 function sendToAcquirer(response) {
     console.log(response);
     let card_hash = response.process.card_hash;
-    let amount = Number($("#amount").val())*100;
+    let amount = Number($('#amount').val())*100;
+    let installments = $('#installments').val();
 
     $.post( "https://api.pagar.me/1/transactions",
 	    {
 		api_key: "ak_test_jUC8l5YGoIX34M8IMYSmG7Sd8YcUkH",
 		amount: amount,
+		installments: installments,
 		card_hash: card_hash,
 		split_rules: [
 		    {

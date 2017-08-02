@@ -7,24 +7,25 @@
   </head>
   <body class="home-page">
     <nav id="navbar" class="navbar">
-      <div class="navbar-inner">
-        <div class="navbar__left">
-          <a href="/" class="navbar-brand">
-            <div>
-		<img src="imagens/panvel_logo.png" alt="Panvel" height="30" width="50">
-            </div>
-          </a>
+	<div class="navbar-inner">
+	    <div class="navbar__left">
+		<a href="/" class="navbar-brand">
+		    <div class="display-table-cell">
+			Pagar.me
+		    </div>
+		</a>
 
-          <div class="navbar-highlight">
-            <div class="display-table-cell">
-              <ul class="navbar-menu">
-                <li><a href="https://github.com/pagarme/mpos-net-sdk/blob/feature/bifrost/docs/websocket.md" target="_blank">Docs</a></li>
-                <li><a href="https://pagarme.zendesk.com/hc/pt-br" target="_blank">Suporte</a></li>
-                <li><a href="config.html">Configuração</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
+		<div class="navbar-highlight">
+		    <div class="display-table-cell">
+			<ul class="navbar-menu">
+			    <li><img src="imagens/panvel_logo.png" alt="Panvel" height="50" width="150"></li>
+			    <li><a href="https://github.com/pagarme/mpos-net-sdk/blob/feature/bifrost/docs/websocket.md" target="_blank">Docs</a></li>
+			    <li><a href="https://pagarme.zendesk.com/hc/pt-br" target="_blank">Suporte</a></li>
+			    <li><a href="config.html">Configuração</a></li>
+			</ul>
+		    </div>
+		</div>
+	    </div
 
         <div class="navbar__right">
           <div class="navbar-links">
@@ -126,6 +127,30 @@
 		    </select>
                 </p>
 
+		<div style="display: none;">
+		    <p>
+			<label for="context-id">ID do contexto:</label>
+			<input type="text" name="context-id" id="context-id" value="contexto" />
+                    </p>
+
+                    <p>
+			<label for="encryption-key">Encryption Key:</label>
+			<input type="text" name="encryption-key" id="encryption-key" value="ek_test_G84bs5wa355FioxHAC00lGUe1f1p4O" />
+                    </p>
+
+                    <p>
+			<label for="device-name">Dispositivo:</label>
+			<input type="text" name="device-name" id="device-name" disabled />
+			<br /><small><a href="config.html">configurar</a></small>
+                    </p>
+
+                    <p>
+			<label for="baud-rate">Taxa de transmissão:</label>
+			<input type="text" name="baud-rate" id="baud-rate" disabled />
+			<br /><small><a href="config.html">configurar</a></small>
+                    </p>
+		</div>
+		
                 <p>
                   <button onclick="callWS()" class="btn btn-primary">Enviar</button>
                 </p>
