@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Exemplo de envio de Transações</title>>
+    <title>PDV Exemplo</title>>
     <link rel="stylesheet" href="pagarme.css" />
     <script src="jquery-3.2.1.min.js"></script>
   </head>
@@ -93,23 +93,31 @@
         <div data-sr="" class="section__grid section__grid--left">
 
           <div class="section__grid__inner">
-            <h2>Formulário de testes</h2>
+            <h2>Informações do Produto</h2>
             <div>
 
               <div id="form">
+		<p>
+                  <label for="amount">Imagem do Produto:</label>
+                  <img id="product-image" src="#" alt="Imagem do Produto" style="height: 100px; width: 100px;"/>
+                </p>
+		<p>
+                  <label for="amount">Nome do Produto:</label>
+                  <input id="product-name" value="" readonly/>
+                </p
                 <p>
                   <label for="amount">Valor da transação (R$):</label>
-                  <input type="text" name="amount" id="amount" value="2239.90"/>
+                  <input type="text" name="amount" id="amount" value="" readonly/>
                 </p>
 
                 <p>
                   <label for="payment-method">Método de pagamento:</label>
-                  <input type="radio" name="payment-method" id="debit" value="debit" checked> <label class="no-label" for="debit" style="margin-right: 10px">Debit</label>
-                  <input type="radio" name="payment-method" id="credit" value="credit"> <label class="no-label" for="credit">Credit</label>
+                  <input type="radio" name="payment-method" id="debit" value="debit" onclick="toggleInstallments()" checked> <label class="no-label" for="debit" style="margin-right: 10px">Debit</label>
+                  <input type="radio" name="payment-method" id="credit" value="credit" onclick="toggleInstallments()"> <label class="no-label" for="credit">Credit</label>
                   <br /><small>(tarja)</small>
                 </p>
 
-		<p>
+		<p id="installments-paragraph" style="display: none;">
                     <label for="installments">Número de Parcelas:</label>
                     <select id="installments">
 			<option value="1">1x</option>
@@ -192,6 +200,9 @@
     <script type="text/javascript" src="ui.js"></script>
     <script type="text/javascript" src="websocket.js"></script>
     <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript">
+      
+    </script>
 
   </body>
 </html>

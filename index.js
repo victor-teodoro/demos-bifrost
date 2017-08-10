@@ -1,12 +1,29 @@
-var deviceName = getLocal('device-name')
-var baudRate = getLocal('baud-rate')
+var deviceName = getLocal('device-name');
+var baudRate = getLocal('baud-rate');
+let dadosDoProduto = null;
 
 function init () {
-    getById('device-name').value = deviceName
-    getById('baud-rate').value = baudRate
+    getById('device-name').value = deviceName;
+    getById('baud-rate').value = baudRate;
+
+    $.get('https://solutions-api.herokuapp.com/dell')
+	.done(function(data) {
+	    console.log(data);
+	    dadosDoProduto = data;
+	    $('#product-image').attr('src',data.url);
+	    $('#product-name').attr('value',data.name);
+	    $('#amount').attr('value', (data.amount/100).toFixed(2));
+	});
 }
 
-init()
+init();
+
+function toggleInstallments() {
+    if (document.getElementById('credit').checked) {
+        document.getElementById('installments-paragraph').style.display = 'block';
+    }
+    else document.getElementById('installments-paragraph').style.display = 'none';
+}
 
 function callWS () {
     const contextId = getById('context-id').value
@@ -131,27 +148,9 @@ function sendToAcquirer(response) {
 		amount: amount,
 		installments: installments,
 		card_hash: card_hash,
-		soft_descriptor: "LojaFisica",
-		metadata: {
-		    "Filial": "Sao Paulo",
-		    "Meio de Captura": "MPOS",
-		    "Canal de Origem": "App de Autoatendimento",
-		    "Promocao de Origem": "15% OFF - Carnaval"
-		},
-		split_rules: [
-		    {
-			recipient_id: "re_cj5ec35kw04g38c6ey9zu7jr0",
-			liable: false,
-			charge_processing_fee: true,
-			percentage: "12"
-		    },
-		    {
-			recipient_id: "re_cj5ec4prx04gu8c6epih6pm39",
-			liable: true,
-			charge_processing_fee: false,
-			percentage: "88"
-		    }
-		]
+		soft_descriptor: dadosDoProduto.soft_descriptor,
+		metadata: dadosDoProduto.metadata,
+		split_rules: dadosDoProduto.split_rules
 	    }
     )
      .done(function(data) {
