@@ -18,7 +18,8 @@
 		<div class="navbar-highlight">
 		    <div class="display-table-cell">
 			<ul class="navbar-menu">
-			    <li><img src="imagens/logo-panvel.png" alt="Panvel" height="80" width="150"></li>
+			  <li><img src="imagens/logono
+				   -panvel.png" alt="Panvel" height="70" width="70"></li>
 			    <li><a href="https://github.com/pagarme/mpos-net-sdk/blob/feature/bifrost/docs/websocket.md" target="_blank">Docs</a></li>
 			    <li><a href="https://pagarme.zendesk.com/hc/pt-br" target="_blank">Suporte</a></li>
 			    <li><a href="config.html">Configuração</a></li>

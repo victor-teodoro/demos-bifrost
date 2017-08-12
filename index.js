@@ -6,7 +6,7 @@ function init () {
     getById('device-name').value = deviceName;
     getById('baud-rate').value = baudRate;
 
-    $.get('https://solutions-api.herokuapp.com/dell')
+    $.get('https://solutions-api.herokuapp.com/panvel')
 	.done(function(data) {
 	    console.log(data);
 	    dadosDoProduto = data;
