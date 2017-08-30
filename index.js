@@ -32,8 +32,9 @@ function toggleInstallments() {
 
 document.getElementById('recurring').onclick = function () {
     for(let method in purchaseType) {
-	method = false;
+	purchaseType[method] = false;
     }
+    console.log(purchaseType);
     purchaseType.recurring = true;
     callWS ();
     return false; // stop the browser from following the link
@@ -41,8 +42,9 @@ document.getElementById('recurring').onclick = function () {
 
 document.getElementById('on_installments').onclick = function () {
     for(let method in purchaseType) {
-	method = false;
+	purchaseType[method] = false;
     }
+    console.log(purchaseType);
     purchaseType.on_installments = true;
     callWS ();
     return false; // stop the browser from following the link
@@ -50,8 +52,9 @@ document.getElementById('on_installments').onclick = function () {
 
 document.getElementById('all_now').onclick = function () {
     for(let method in purchaseType) {
-	method = false;
+	purchaseType[method] = false;
     }
+    console.log(purchaseType);
     purchaseType.all_now = true;
     callWS ();
     return false; // stop the browser from following the link
