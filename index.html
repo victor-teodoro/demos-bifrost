@@ -9,21 +9,11 @@
     <nav id="navbar" class="navbar">
 	<div class="navbar-inner">
 	    <div class="navbar__left">
-		<a href="/" class="navbar-brand">
-		    <div class="display-table-cell">
-			Pagar.me
-		    </div>
-		</a>
-
 		<div class="navbar-highlight">
-		    <div class="display-table-cell">
 			<ul class="navbar-menu">
-			    <li><img src="imagens/logo_dell_branco.png" alt="Panvel" height="70" width="70"></li>
-			    <li><a href="https://github.com/pagarme/mpos-net-sdk/blob/feature/bifrost/docs/websocket.md" target="_blank">Docs</a></li>
-			    <li><a href="https://pagarme.zendesk.com/hc/pt-br" target="_blank">Suporte</a></li>
-			    <li><a href="config.html">Configuração</a></li>
+			    <li><img src="imagens/logo_kroton_branco.png" alt="Panvel" height="60" width="80" style="margin-right:100px;"></li>
+			    <li><a href="config.html" style="margin-right: 300px;">Configuração</a></li>
 			</ul>
-		    </div>
 		</div>
 	    </div
 
@@ -62,7 +52,7 @@
             </div>
           </div>
 
-          <div class="navbar-buttons">
+          <div class="navbar-buttons" style="display: none;">
             <div class="display-table-cell">
               <a class="btn btn-primary-full" href="#quero-usar" onclick="_gaq.push([‘_trackEvent’, ‘button’, ’clicked’, ’quero usar (navbar)’,, ’true’])">
                 <span class="ss-icon ss-gizmo ss-plus"></span>
@@ -90,7 +80,24 @@
 
       <div class="section__container">
 
-        <div data-sr="" class="section__grid section__grid--left">
+	<img ng-hide="success" id="site" src="imagens/checkout_kroton.png" style="width:1000px;" >
+
+	<!-- Checkout Button -->
+	<div style="margin-left:750px; margin-top:-230px; position:absolute;">
+	  <button class="btn btn-primary" id="recurring" style="width:200px;height:50px;opacity:0"></button>
+	</div>
+	<div style="margin-left:750px; margin-top:-170px; position:absolute;">
+	  <button class="btn btn-primary" id="on_installments" style="width:200px;height:50px;opacity:0"></button>
+	</div>
+	<div style="margin-left:750px; margin-top:-110px; position:absolute;">
+	  <button class="btn btn-primary" id="all_now" style="width:200px;height:50px;opacity:0"></button>
+	</div>
+
+	<div style="margin-left:550px; margin-top:-700px; position:absolute;">
+	  <p>Valor da Mensalidade: R$452,00</p>
+	</div>
+
+        <div data-sr="" class="section__grid section__grid--left" style="display: none;">
 
           <div class="section__grid__inner">
             <h2>Informações do Produto</h2>
@@ -174,7 +181,7 @@
           </div>
         </div>
 
-        <div data-sr="" class="section__grid section__grid--right">
+        <div data-sr="" class="section__grid section__grid--right" style="display: none;">
           <div class="section__grid__inner">
             <h2 class="heading--section">Exemplo de como enviar transações</h2>
 

@@ -1,6 +1,11 @@
 var deviceName = getLocal('device-name');
 var baudRate = getLocal('baud-rate');
 let dadosDoProduto = null;
+let purchaseType = {
+    recurring: false,
+    on_installments: false,
+    all_now: false
+};
 
 function init () {
     getById('device-name').value = deviceName;
@@ -25,7 +30,34 @@ function toggleInstallments() {
     else document.getElementById('installments-paragraph').style.display = 'none';
 }
 
-function callWS () {
+document.getElementById('recurring').onclick = function () {
+    for(let method in purchaseType) {
+	method = false;
+    }
+    purchaseType.recurring = true;
+    callWS ();
+    return false; // stop the browser from following the link
+};
+
+document.getElementById('on_installments').onclick = function () {
+    for(let method in purchaseType) {
+	method = false;
+    }
+    purchaseType.on_installments = true;
+    callWS ();
+    return false; // stop the browser from following the link
+};
+
+document.getElementById('all_now').onclick = function () {
+    for(let method in purchaseType) {
+	method = false;
+    }
+    purchaseType.all_now = true;
+    callWS ();
+    return false; // stop the browser from following the link
+};
+
+function callWS () {    
     const contextId = getById('context-id').value
     const wsWrap = new WebSocketWrap(contextId)
 
@@ -39,7 +71,14 @@ function callWS () {
 }
 
 function setValues (wsWrap) {
-    wsWrap.amount = getById('amount').value;
+     if(purchaseType.recurring === true){
+	 wsWrap.amount = 400;
+     }else if(purchaseType.on_installments === true){
+	 wsWrap.amount = 518.66;
+     }else if(purchaseType.all_now === true){
+	 wsWrap.amount = 3112.00;
+     }
+     
 
     wsWrap.method =
 	getById('credit').checked ? 'Credit' :
@@ -139,28 +178,93 @@ function getDevice (wsWrap, responseJson) {
 function sendToAcquirer(response) {
     console.log(response);
     let card_hash = response.process.card_hash;
-    let amount = Number($('#amount').val())*100;
-    let installments = $('#installments').val();
-
-    $.post( "https://api.pagar.me/1/transactions",
+    
+    let transaction_json = {
+	api_key: "ak_test_jUC8l5YGoIX34M8IMYSmG7Sd8YcUkH",
+	card_hash: card_hash,	    
+	soft_descriptor: "KrotonMatri",
+	metadata: {
+	    canalDeOrigem: "Totem de Matrícula",
+	    vestibular: "Novembro",
+	    unidadeDeOrigem: "Anhanguera Belenzinho",
+	    unidadeDoVestibular: "Anhanguera Brigadeiro"
+	},
+	split_rules: [
 	    {
-		api_key: "ak_test_jUC8l5YGoIX34M8IMYSmG7Sd8YcUkH",
-		amount: amount,
-		installments: installments,
-		card_hash: card_hash,
-		soft_descriptor: dadosDoProduto.soft_descriptor,
-		metadata: dadosDoProduto.metadata,
-		split_rules: dadosDoProduto.split_rules
+		"recipient_id": "re_cj6y7psp800bpil6dhmzph9at",
+		"charge_processing_fee": false,
+		"liable": false,
+		"percentage": 0
+	    },
+	    {
+		"recipient_id": "re_cj6y7qwiw03p8i76dutv4xrsn",
+		"charge_processing_fee": true,
+		"liable": true,
+		"percentage": 100
 	    }
-    )
-     .done(function(data) {
-	 console.log(data);
-     });
+	]
+    };
+
+    if(purchaseType.recurring === true) {
+	transaction_json.amount = 40000; 
+    } else if(purchaseType.on_installments === true) {
+	transaction_json.amount = 311200;
+	transaction_json.installments = 6;
+    } else if(purchaseType.all_now === true) {
+	transaction_json.amount = 311200; 
+    }
+    
+    let subscription_json = {
+	api_key: "ak_test_jUC8l5YGoIX34M8IMYSmG7Sd8YcUkH",
+	plan_id: 203440,
+	card_id: null,
+	customer: {
+	    email: "victor.teodoro@pagar.me"
+	},
+	soft_descriptor: "KrotonMatri",
+	metadata: {
+	    canalDeOrigem: "Totem de Matrícula",
+	    vestibular: "Novembro",
+	    unidadeDeOrigem: "Anhanguera Belenzinho",
+	    unidadeDoVestibular: "Anhanguera Brigadeiro"
+	},
+	split_rules: [
+	    {
+		"recipient_id": "re_cj6y7psp800bpil6dhmzph9at",
+		"charge_processing_fee": false,
+		"liable": false,
+		"percentage": 0
+	    },
+	    {
+		"recipient_id": "re_cj6y7qwiw03p8i76dutv4xrsn",
+		"charge_processing_fee": true,
+		"liable": true,
+		"percentage": 100
+	    }
+	]
+    };
+
+    $.post( "https://api.pagar.me/1/transactions", transaction_json)
+	.done(function(data) {
+	    console.log(data);
+	    if(purchaseType.recurring === true) {
+		subscription_json.card_id = data.card.id
+		$.post( "https://api.pagar.me/1/subscriptions", subscription_json)
+		    .done(function(data) {
+			console.log(data);
+		    });
+	    }
+	});
+    
     
     return {
 	response_code: '0000',
 	emv_data: '000000000.0000'
     }
+}
+
+function transaction(transaction_json) {
+    
 }
 
 function getEndingMessage (wsWrap, responseJson) {
